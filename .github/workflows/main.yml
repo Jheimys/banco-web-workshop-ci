@@ -26,7 +26,7 @@ jobs:
         run: npm run server &
 
       - name: Aguardar servidor iniciar
-        run: npx wait-on http://localhost:3000
+        run: npx wait-on http://localhost:4000
 
       - name: Executar testes (Cypress)
         run: npx cypress run
