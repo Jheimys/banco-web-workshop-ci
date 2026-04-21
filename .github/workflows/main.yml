@@ -21,19 +21,12 @@ jobs:
 
       - name: Iniciar servidor de mocks
         run: npm run mock-server &
-        shell: bash
-
-      - name: Aguardar mock server iniciar
-        run: sleep 3 && npx wait-on http://localhost:3000 --timeout 15000 --verbose
-        shell: bash
 
       - name: Iniciar aplicação
         run: npm run server &
-        shell: bash
 
-      - name: Aguardar aplicação iniciar
-        run: sleep 2 && npx wait-on http://localhost:4000 --timeout 15000 --verbose
-        shell: bash
+      - name: Aguardar servidor iniciar
+        run: npx wait-on http://localhost:3000
 
       - name: Executar testes (Cypress)
         run: npx cypress run
