@@ -1,0 +1,33 @@
+name: CI Pipeline
+
+on: 
+  push:
+    branches: ["main"]
+
+env:
+  API_BASE_URL: 'http://localhost:3000'
+  PORT: 4000
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Iniciar servidor de mocks
+        run: npm run mock-server &
+
+      - name: Iniciar aplicação
+        run: npm run server &
+
+      - name: Aguardar servidor iniciar
+        run: npx wait-on http://localhost:3000
+
+      - name: Executar testes (Cypress)
+        run: npx cypress run
+      
