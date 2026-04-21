@@ -20,19 +20,19 @@ jobs:
         run: npm install
 
       - name: Iniciar servidor de mocks
-        run: nohup npm run mock-server > mock-server.log 2>&1 &
+        run: npm run mock-server &
         shell: bash
 
       - name: Aguardar mock server iniciar
-        run: npx wait-on http://localhost:3000 --timeout 10000
+        run: sleep 3 && npx wait-on http://localhost:3000 --timeout 15000 --verbose
         shell: bash
 
       - name: Iniciar aplicação
-        run: nohup npm run server > app.log 2>&1 &
+        run: npm run server &
         shell: bash
 
       - name: Aguardar aplicação iniciar
-        run: npx wait-on http://localhost:4000 --timeout 10000
+        run: sleep 2 && npx wait-on http://localhost:4000 --timeout 15000 --verbose
         shell: bash
 
       - name: Executar testes (Cypress)
